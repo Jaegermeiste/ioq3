@@ -43,3 +43,17 @@ profile
 *.opensdf
 *.suo
 /.vs
+*.sbr
+*.tlog
+*.pdb
+/misc/msvc143_2022/quake3/x64/Debug
+/misc/msvc143_2022/vcpkg_installed
+*.bsc
+/misc/msvc143_2022/cgame/x64/Debug
+/misc/msvc143_2022/game/x64/Debug
+/misc/msvc143_2022/opengl1/x64/Debug
+/misc/msvc143_2022/opengl2/x64/Debug
+/misc/msvc143_2022/packages
+/misc/msvc143_2022/q3_ui/x64/Debug
+/misc/msvc143_2022/ui/x64/Debug
+*.nupkg
