@@ -57,3 +57,9 @@ profile
 /misc/msvc143_2022/q3_ui/x64/Debug
 /misc/msvc143_2022/ui/x64/Debug
 *.nupkg
+/misc/msvc143_2022/vcpkg_installed
+/misc/msvc143_2022/vcpkg_installed
+*.list
+/misc/msvc143_2022/vcpkg_installed/vcpkg
+/misc/msvc143_2022/vcpkg_installed/vcpkg/info
+misc/msvc143_2022/vcpkg_installed/vcpkg/info/boost-algorithm_1.88.0_x64-windows.list
