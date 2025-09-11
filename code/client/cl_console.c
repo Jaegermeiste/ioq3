@@ -604,7 +604,7 @@ void Con_DrawNotify (void)
 		v += SMALLCHAR_HEIGHT;
 	}
 
-	re.SetColor( NULL );
+	re.SetColor(NULL);
 
 	if (Key_GetCatcher( ) & (KEYCATCH_UI | KEYCATCH_CGAME) ) {
 		return;
@@ -656,7 +656,7 @@ void Con_DrawSolidConsole( float frac ) {
 
 	// on wide screens, we will center the text
 	con.xadjust = 0;
-	SCR_AdjustFrom640( &con.xadjust, NULL, NULL, NULL );
+	SCR_AdjustFrom640( &con.xadjust, NULL, NULL, NULL);
 
 	// draw the background
 	y = frac * SCREEN_HEIGHT;
@@ -739,7 +739,7 @@ void Con_DrawSolidConsole( float frac ) {
 	// draw the input prompt, user text, and cursor if desired
 	Con_DrawInput ();
 
-	re.SetColor( NULL );
+	re.SetColor(NULL);
 }
 
 

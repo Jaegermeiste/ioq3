@@ -670,7 +670,7 @@ void SV_DropClient( client_t *drop, const char *reason ) {
 	drop->gamestateMessageNum = -1;
 
 	// tell everyone why they got dropped
-	SV_SendServerCommand( NULL, "print \"%s" S_COLOR_WHITE " %s\n\"", drop->name, reason );
+	SV_SendServerCommand(NULL, "print \"%s" S_COLOR_WHITE " %s\n\"", drop->name, reason );
 
 	// call the prog function for removing a client
 	// this will remove the body, among other things

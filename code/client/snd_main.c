@@ -438,7 +438,7 @@ void S_Music_f( void ) {
 	c = Cmd_Argc();
 
 	if ( c == 2 ) {
-		si.StartBackgroundTrack( Cmd_Argv(1), NULL );
+		si.StartBackgroundTrack( Cmd_Argv(1), NULL);
 	} else if ( c == 3 ) {
 		si.StartBackgroundTrack( Cmd_Argv(1), Cmd_Argv(2) );
 	} else {

@@ -354,8 +354,15 @@ typedef vec_t vec2_t[2];
 typedef vec_t vec3_t[3];
 typedef vec_t vec4_t[4];
 typedef vec_t vec5_t[5];
+typedef vec_t vec6_t[6];
 
 typedef vec_t quat_t[4];
+
+typedef vec_t mat2_t[2][2];
+typedef vec_t mat3_t[3][3];
+typedef vec_t mat4_t[4][4];
+typedef vec_t mat5_t[5][5];
+typedef vec_t mat6_t[6][6];
 
 typedef	int	fixed4_t;
 typedef	int	fixed8_t;
@@ -604,14 +611,14 @@ static ID_INLINE vec_t VectorLengthSquared( const vec3_t v ) {
 }
 
 static ID_INLINE vec_t Distance( const vec3_t p1, const vec3_t p2 ) {
-	vec3_t	v;
+	vec3_t	v = { 0 };
 
 	VectorSubtract (p2, p1, v);
 	return VectorLength( v );
 }
 
 static ID_INLINE vec_t DistanceSquared( const vec3_t p1, const vec3_t p2 ) {
-	vec3_t	v;
+	vec3_t	v = { 0 };
 
 	VectorSubtract (p2, p1, v);
 	return v[0]*v[0] + v[1]*v[1] + v[2]*v[2];

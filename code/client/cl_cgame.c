@@ -183,7 +183,7 @@ CL_AddCgameCommand
 =====================
 */
 void CL_AddCgameCommand( const char *cmdName ) {
-	Cmd_AddCommand( cmdName, NULL );
+	Cmd_AddCommand( cmdName, NULL);
 }
 
 

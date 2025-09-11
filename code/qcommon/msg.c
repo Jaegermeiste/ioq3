@@ -831,8 +831,8 @@ void MSG_WriteDeltaEntity( msg_t *msg, struct entityState_s *from, struct entity
 	assert( numFields + 1 == sizeof( *from )/4 );
 
 	// a NULL to is a delta remove message
-	if ( to == NULL ) {
-		if ( from == NULL ) {
+	if ( to == NULL) {
+		if ( from == NULL) {
 			return;
 		}
 		MSG_WriteBits( msg, from->number, GENTITYNUM_BITS );

@@ -676,7 +676,7 @@ void PC_AddBuiltinDefines(source_t *source)
 		{ "__DATE__",	BUILTIN_DATE },
 		{ "__TIME__",	BUILTIN_TIME },
 //		{ "__STDC__", BUILTIN_STDC },
-		{ NULL, 0 }
+		{NULL, 0 }
 	};
 
 	for (i = 0; builtin[i].string; i++)
@@ -783,7 +783,7 @@ int PC_ExpandBuiltinDefine(source_t *source, token_t *deftoken, define_t *define
 int PC_ExpandDefine(source_t *source, token_t *deftoken, define_t *define,
 										token_t **firsttoken, token_t **lasttoken)
 {
-	token_t *parms[MAX_DEFINEPARMS] = { NULL }, *dt, *pt, *t;
+	token_t *parms[MAX_DEFINEPARMS] = {NULL}, *dt, *pt, *t;
 	token_t *t1, *t2, *first, *last, *nextpt, token;
 	int parmnum, i;
 

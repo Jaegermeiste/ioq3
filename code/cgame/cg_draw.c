@@ -205,7 +205,7 @@ Draws large numbers for status bar and powerups
 #ifndef MISSIONPACK
 static void CG_DrawField (int x, int y, int width, int value) {
 	char	num[16], *ptr;
-	int		l;
+	size_t		l = 0;
 	int		frame;
 
 	if ( width < 1 ) {
@@ -1420,7 +1420,7 @@ static void CG_DrawHoldableItem( void ) {
 	value = cg.snap->ps.stats[STAT_HOLDABLE_ITEM];
 	if ( value ) {
 		CG_RegisterItemVisuals( value );
-		CG_DrawPic( 640-ICON_SIZE, (SCREEN_HEIGHT-ICON_SIZE)/2, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
+		CG_DrawPic( 640-ICON_SIZE, (float)(SCREEN_HEIGHT-ICON_SIZE)/2.0f, ICON_SIZE, ICON_SIZE, cg_items[ value ].icon );
 	}
 
 }
@@ -1500,7 +1500,7 @@ static void CG_DrawReward( void ) {
 		x = 320 - ICON_SIZE/2;
 		CG_DrawPic( x, y, ICON_SIZE-4, ICON_SIZE-4, cg.rewardShader[0] );
 		Com_sprintf(buf, sizeof(buf), "%d", cg.rewardCount[0]);
-		x = ( SCREEN_WIDTH - SMALLCHAR_WIDTH * CG_DrawStrlen( buf ) ) / 2;
+		x = ( SCREEN_WIDTH - SMALLCHAR_WIDTH * CG_DrawStrlen( buf ) ) / 2.0f;
 		CG_DrawStringExt( x, y+ICON_SIZE, buf, color, qfalse, qtrue,
 								SMALLCHAR_WIDTH, SMALLCHAR_HEIGHT, 0 );
 	}
@@ -1509,7 +1509,7 @@ static void CG_DrawReward( void ) {
 		count = cg.rewardCount[0];
 
 		y = 56;
-		x = 320 - count * ICON_SIZE/2;
+		x = 320 - count * ICON_SIZE/2.0f;
 		for ( i = 0 ; i < count ; i++ ) {
 			CG_DrawPic( x, y, ICON_SIZE-4, ICON_SIZE-4, cg.rewardShader[0] );
 			x += ICON_SIZE;

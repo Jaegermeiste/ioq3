@@ -221,15 +221,15 @@ void VM_LoadSymbols( vm_t *vm ) {
 		char	*c;
 		void	*v;
 	} mapfile;
-	char *text_p, *token;
-	char	name[MAX_QPATH];
-	char	symbols[MAX_QPATH];
-	vmSymbol_t	**prev, *sym;
-	int		count;
-	int		value;
-	int		chars;
-	int		segment;
-	int		numInstructions;
+	char *text_p = NULL, *token = NULL;
+	char	name[MAX_QPATH] = {0};
+	char	symbols[MAX_QPATH] = {0};
+	vmSymbol_t	**prev = NULL, *sym = NULL;
+	int		count = 0;
+	int		value = 0;
+	size_t		chars = 0;
+	int		segment = 0;
+	int		numInstructions = 0;
 
 	// don't load symbols if not developer
 	if ( !com_developer->integer ) {
@@ -474,7 +474,7 @@ vmHeader_t *VM_LoadQVM( vm_t *vm, qboolean alloc, qboolean unpure)
 
 	// copy the intialized data
 	Com_Memcpy( vm->dataBase, (byte *)header.h + header.h->dataOffset,
-		header.h->dataLength + header.h->litLength );
+		(size_t)header.h->dataLength + header.h->litLength );
 
 	// byte swap the longs
 	for ( i = 0 ; i < header.h->dataLength ; i += 4 ) {
@@ -750,7 +750,7 @@ void *VM_ArgPtr( intptr_t intValue ) {
 		return NULL;
 	}
 	// currentVM is missing on reconnect
-	if ( currentVM==NULL )
+	if ( currentVM== NULL)
 	  return NULL;
 
 	if ( currentVM->entryPoint ) {
@@ -767,7 +767,7 @@ void *VM_ExplicitArgPtr( vm_t *vm, intptr_t intValue ) {
 	}
 
 	// currentVM is missing on reconnect here as well?
-	if ( currentVM==NULL )
+	if ( currentVM== NULL)
 	  return NULL;
 
 	//
@@ -867,7 +867,7 @@ intptr_t QDECL VM_Call( vm_t *vm, int callnum, ... )
 	}
 	--vm->callLevel;
 
-	if ( oldVM != NULL )
+	if ( oldVM != NULL)
 	  currentVM = oldVM;
 	return r;
 }

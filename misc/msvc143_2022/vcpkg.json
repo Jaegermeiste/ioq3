@@ -1,0 +1,36 @@
+{
+  "dependencies": [
+    "boost-circular-buffer",
+    "boost-endian",
+    "boost-filesystem",
+    "boost-locale",
+    "boost-log",
+    "boost-multi-index",
+    {
+      "name": "boost-regex",
+      "features": [
+        "icu"
+      ]
+    },
+    "boost-uuid",
+    "curl",
+    "icu",
+    "libogg",
+    "magic-enum",
+    {
+      "name": "minizip-ng",
+      "features": [
+        "bzip2",
+        "lzma",
+        "zlib",
+        "zstd"
+      ]
+    },
+    "opus",
+    "physfs",
+    "sdl2",
+    "steam-audio",
+    "stringzilla",
+    "simdutf"
+  ]
+}

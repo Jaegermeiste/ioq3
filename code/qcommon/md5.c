@@ -240,7 +240,7 @@ static void MD5Final(struct MD5Context *ctx, unsigned char *digest)
 	memset(ctx->in, 0, 56);
     } else {
 	/* Pad block to 56 bytes */
-	memset(p, 0, count - 8);
+	memset(p, 0, (size_t)count - 8);
     }
     byteReverse(ctx->in, 14);
 
@@ -251,7 +251,7 @@ static void MD5Final(struct MD5Context *ctx, unsigned char *digest)
     MD5Transform(ctx->buf, (uint32_t *) ctx->in);
     byteReverse((unsigned char *) ctx->buf, 4);
     
-    if (digest!=NULL)
+    if (digest!= NULL)
 	    memcpy(digest, ctx->buf, 16);
     memset(ctx, 0, sizeof(*ctx));	/* In case it's sensitive */
 }

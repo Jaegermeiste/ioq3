@@ -161,7 +161,7 @@ static stringDef_t *strHandle[HASH_TABLE_SIZE];
 
 
 const char *String_Alloc(const char *p) {
-	int len;
+	size_t len = 0;
 	unsigned hash;
 	stringDef_t *str, *last;
 	static const char *staticNULL = "";
@@ -2095,7 +2095,7 @@ qboolean Item_Multi_HandleKey(itemDef_t *item, int key) {
 
 qboolean Item_TextField_HandleKey(itemDef_t *item, int key) {
 	char buff[1024];
-	int len;
+	size_t len = 0;
 	itemDef_t *newItem = NULL;
 	editFieldDef_t *editPtr = (editFieldDef_t*)item->typeData;
 
@@ -2887,7 +2887,7 @@ void Item_SetTextExtents(itemDef_t *item, int *width, int *height, const char *t
 		if (item->textalignment == ITEM_ALIGN_RIGHT) {
 			item->textRect.x = item->textalignx - originalWidth;
 		} else if (item->textalignment == ITEM_ALIGN_CENTER) {
-			item->textRect.x = item->textalignx - originalWidth / 2;
+			item->textRect.x = item->textalignx - (float)originalWidth / 2.0f;
 		}
 
 		ToWindowCoords(&item->textRect.x, &item->textRect.y, &item->window);
@@ -2905,13 +2905,13 @@ void Item_TextColor(itemDef_t *item, vec4_t *newColor) {
 		lowLight[1] = 0.8 * parent->focusColor[1]; 
 		lowLight[2] = 0.8 * parent->focusColor[2]; 
 		lowLight[3] = 0.8 * parent->focusColor[3]; 
-		LerpColor(parent->focusColor,lowLight,*newColor,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+		LerpColor(parent->focusColor,lowLight,*newColor,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 	} else if (item->textStyle == ITEM_TEXTSTYLE_BLINK && !((DC->realTime/BLINK_DIVISOR) & 1)) {
 		lowLight[0] = 0.8 * item->window.foreColor[0]; 
 		lowLight[1] = 0.8 * item->window.foreColor[1]; 
 		lowLight[2] = 0.8 * item->window.foreColor[2]; 
 		lowLight[3] = 0.8 * item->window.foreColor[3]; 
-		LerpColor(item->window.foreColor,lowLight,*newColor,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+		LerpColor(item->window.foreColor,lowLight,*newColor,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 	} else {
 		memcpy(newColor, &item->window.foreColor, sizeof(vec4_t));
 		// items can be enabled and disabled based on cvars
@@ -2971,9 +2971,9 @@ void Item_Text_AutoWrapped_Paint(itemDef_t *item) {
 				if (item->textalignment == ITEM_ALIGN_LEFT) {
 					item->textRect.x = item->textalignx;
 				} else if (item->textalignment == ITEM_ALIGN_RIGHT) {
-					item->textRect.x = item->textalignx - newLineWidth;
+					item->textRect.x = item->textalignx - (float)newLineWidth;
 				} else if (item->textalignment == ITEM_ALIGN_CENTER) {
-					item->textRect.x = item->textalignx - newLineWidth / 2;
+					item->textRect.x = item->textalignx - (float)newLineWidth / 2.0f;
 				}
 				item->textRect.y = y;
 				ToWindowCoords(&item->textRect.x, &item->textRect.y, &item->window);
@@ -3141,7 +3141,7 @@ void Item_TextField_Paint(itemDef_t *item) {
 		lowLight[1] = 0.8 * parent->focusColor[1]; 
 		lowLight[2] = 0.8 * parent->focusColor[2]; 
 		lowLight[3] = 0.8 * parent->focusColor[3]; 
-		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 	} else {
 		memcpy(&newColor, &item->window.foreColor, sizeof(vec4_t));
 	}
@@ -3168,7 +3168,7 @@ void Item_YesNo_Paint(itemDef_t *item) {
 		lowLight[1] = 0.8 * parent->focusColor[1]; 
 		lowLight[2] = 0.8 * parent->focusColor[2]; 
 		lowLight[3] = 0.8 * parent->focusColor[3]; 
-		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 	} else {
 		memcpy(&newColor, &item->window.foreColor, sizeof(vec4_t));
 	}
@@ -3191,7 +3191,7 @@ void Item_Multi_Paint(itemDef_t *item) {
 		lowLight[1] = 0.8 * parent->focusColor[1]; 
 		lowLight[2] = 0.8 * parent->focusColor[2]; 
 		lowLight[3] = 0.8 * parent->focusColor[3]; 
-		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 	} else {
 		memcpy(&newColor, &item->window.foreColor, sizeof(vec4_t));
 	}
@@ -3481,7 +3481,7 @@ void Item_Slider_Paint(itemDef_t *item) {
 		lowLight[1] = 0.8 * parent->focusColor[1]; 
 		lowLight[2] = 0.8 * parent->focusColor[2]; 
 		lowLight[3] = 0.8 * parent->focusColor[3]; 
-		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 	} else {
 		memcpy(&newColor, &item->window.foreColor, sizeof(vec4_t));
 	}
@@ -3521,7 +3521,7 @@ void Item_Bind_Paint(itemDef_t *item) {
 			lowLight[2] = 0.8f * parent->focusColor[2]; 
 			lowLight[3] = 0.8f * parent->focusColor[3]; 
 		}
-		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+		LerpColor(parent->focusColor,lowLight,newColor,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 	} else {
 		memcpy(&newColor, &item->window.foreColor, sizeof(vec4_t));
 	}
@@ -3923,13 +3923,13 @@ void Item_OwnerDraw_Paint(itemDef_t *item) {
 			lowLight[1] = 0.8 * parent->focusColor[1]; 
 			lowLight[2] = 0.8 * parent->focusColor[2]; 
 			lowLight[3] = 0.8 * parent->focusColor[3]; 
-			LerpColor(parent->focusColor,lowLight,color,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+			LerpColor(parent->focusColor,lowLight,color,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 		} else if (item->textStyle == ITEM_TEXTSTYLE_BLINK && !((DC->realTime/BLINK_DIVISOR) & 1)) {
 			lowLight[0] = 0.8 * item->window.foreColor[0]; 
 			lowLight[1] = 0.8 * item->window.foreColor[1]; 
 			lowLight[2] = 0.8 * item->window.foreColor[2]; 
 			lowLight[3] = 0.8 * item->window.foreColor[3]; 
-			LerpColor(item->window.foreColor,lowLight,color,0.5+0.5*sin(DC->realTime / PULSE_DIVISOR));
+			LerpColor(item->window.foreColor,lowLight,color,0.5+0.5*sin((double)DC->realTime / (double)PULSE_DIVISOR));
 		}
 
 		if (item->cvarFlags & (CVAR_ENABLE | CVAR_DISABLE) && !Item_EnableShowViaCvar(item, CVAR_ENABLE)) {
@@ -5279,6 +5279,7 @@ static const char *knownRatios[ ][2] =
 	{ "1.60:1", "16:10" },
 	{ "1.67:1", "5:3"   },
 	{ "1.78:1", "16:9"  },
+	{ "2.33:1", "21:9"  },
 	{ NULL    , NULL    }
 };
 
@@ -5288,7 +5289,7 @@ UI_ResolutionToAspect
 ===============
 */
 static void UI_ResolutionToAspect( const char *resolution, char *aspect, size_t aspectLength ) {
-	int i, w, h;
+	size_t i = 0, w = 0, h = 0;
 	char *x;
 	char str[8];
 

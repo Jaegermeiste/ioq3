@@ -151,8 +151,8 @@ static void GLimp_DetectAvailableModes(void)
 {
 	int i, j;
 	char buf[ MAX_STRING_CHARS ] = { 0 };
-	int numSDLModes;
-	SDL_Rect *modes;
+	int numSDLModes = 0;
+	SDL_Rect *modes = NULL;
 	int numModes = 0;
 
 	SDL_DisplayMode windowMode;
@@ -1136,7 +1136,7 @@ success:
 			extension = (char *) qglGetStringi( GL_EXTENSIONS, i );
 			extensionLength = strlen( extension );
 
-			if ( ( listLength + extensionLength + 1 ) >= sizeof( glConfig.extensions_string ) )
+			if ( (size_t)( listLength + extensionLength + 1 ) >= sizeof( glConfig.extensions_string ) )
 				break;
 
 			if ( i > 0 ) {

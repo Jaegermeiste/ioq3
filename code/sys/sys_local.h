@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #ifdef USE_INTERNAL_SDL_HEADERS
 #	include "SDL_version.h"
 #else
-#	include <SDL_version.h>
+#	include <SDL2/SDL_version.h>
 #endif
 
 // Require a minimum version of SDL

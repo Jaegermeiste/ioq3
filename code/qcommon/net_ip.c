@@ -1088,7 +1088,7 @@ void NET_OpenSocks( int port ) {
 	}
 
 	h = gethostbyname( net_socksServer->string );
-	if ( h == NULL ) {
+	if ( h == NULL) {
 		Com_Printf( "WARNING: NET_OpenSocks: gethostbyname: %s\n", NET_ErrorString() );
 		return;
 	}

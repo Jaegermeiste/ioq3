@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #		include "SDL.h"
 #		include "SDL_loadso.h"
 #	else
-#		include <SDL.h>
-#		include <SDL_loadso.h>
+#		include <SDL2/SDL.h>
+#		include <SDL2/SDL_loadso.h>
 #	endif
 #	define Sys_LoadLibrary(f) SDL_LoadObject(f)
 #	define Sys_UnloadLibrary(h) SDL_UnloadObject(h)

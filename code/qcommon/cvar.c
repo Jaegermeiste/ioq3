@@ -1307,7 +1307,7 @@ void Cvar_SetDescription( cvar_t *var, const char *var_description )
 {
 	if( var_description && var_description[0] != '\0' )
 	{
-		if( var->description != NULL )
+		if( var->description != NULL)
 		{
 			Z_Free( var->description );
 		}

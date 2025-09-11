@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #	include "SDL.h"
 #	include "SDL_cpuinfo.h"
 #else
-#	include <SDL.h>
-#	include <SDL_cpuinfo.h>
+#	include <SDL2/SDL.h>
+#	include <SDL2/SDL_cpuinfo.h>
 #endif
 #endif
 
@@ -152,7 +152,7 @@ char *Sys_GetClipboardData(void)
 	char *data = NULL;
 	char *cliptext;
 
-	if ( ( cliptext = SDL_GetClipboardText() ) != NULL ) {
+	if ( ( cliptext = SDL_GetClipboardText() ) != NULL) {
 		if ( cliptext[0] != '\0' ) {
 			size_t bufsize = strlen( cliptext ) + 1;
 
@@ -198,7 +198,7 @@ void Sys_RemovePIDFile( const char *gamedir )
 {
 	char *pidFile = Sys_PIDFileName( gamedir );
 
-	if( pidFile != NULL )
+	if( pidFile != NULL)
 		remove( pidFile );
 }
 
@@ -215,11 +215,11 @@ static qboolean Sys_WritePIDFile( const char *gamedir )
 	FILE      *f;
 	qboolean  stale = qfalse;
 
-	if( pidFile == NULL )
+	if( pidFile == NULL)
 		return qfalse;
 
 	// First, check if the pid file is already there
-	if( ( f = fopen( pidFile, "r" ) ) != NULL )
+	if( ( f = fopen( pidFile, "r" ) ) != NULL)
 	{
 		char  pidBuffer[ 64 ] = { 0 };
 		int   pid;
@@ -241,7 +241,7 @@ static qboolean Sys_WritePIDFile( const char *gamedir )
 		return 0;
 	}
 
-	if( ( f = fopen( pidFile, "w" ) ) != NULL )
+	if( ( f = fopen( pidFile, "w" ) ) != NULL)
 	{
 		fprintf( f, "%d", Sys_PID( ) );
 		fclose( f );
@@ -851,7 +851,7 @@ int main( int argc, char **argv )
 	}
 
 #ifdef PROTOCOL_HANDLER
-	if ( protocolCommand != NULL )
+	if ( protocolCommand != NULL)
 	{
 		Q_strcat( commandLine, sizeof( commandLine ), "+" );
 		Q_strcat( commandLine, sizeof( commandLine ), protocolCommand );

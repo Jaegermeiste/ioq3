@@ -205,7 +205,7 @@ void QDECL SV_SendServerCommand(client_t *cl, const char *fmt, ...) {
 		return;
 	}
 
-	if ( cl != NULL ) {
+	if ( cl != NULL) {
 		SV_AddServerCommand( cl, (char *)message );
 		return;
 	}
@@ -436,13 +436,13 @@ static leakyBucket_t *SVC_BucketForAddress( netadr_t address, int burst, int per
 		// Reclaim expired buckets
 		if ( bucket->lastTime > 0 && ( interval > ( burst * period ) ||
 					interval < 0 ) ) {
-			if ( bucket->prev != NULL ) {
+			if ( bucket->prev != NULL) {
 				bucket->prev->next = bucket->next;
 			} else {
 				bucketHashes[ bucket->hash ] = bucket->next;
 			}
 			
-			if ( bucket->next != NULL ) {
+			if ( bucket->next != NULL) {
 				bucket->next->prev = bucket->prev;
 			}
 
@@ -463,7 +463,7 @@ static leakyBucket_t *SVC_BucketForAddress( netadr_t address, int burst, int per
 
 			// Add to the head of the relevant hash chain
 			bucket->next = bucketHashes[ hash ];
-			if ( bucketHashes[ hash ] != NULL ) {
+			if ( bucketHashes[ hash ] != NULL) {
 				bucketHashes[ hash ]->prev = bucket;
 			}
 
@@ -484,7 +484,7 @@ SVC_RateLimit
 ================
 */
 qboolean SVC_RateLimit( leakyBucket_t *bucket, int burst, int period ) {
-	if ( bucket != NULL ) {
+	if ( bucket != NULL) {
 		int now = Sys_Milliseconds();
 		int interval = now - bucket->lastTime;
 		int expired = interval / period;
@@ -579,7 +579,7 @@ static void SVC_Status( netadr_t from ) {
 			Com_sprintf (player, sizeof(player), "%i %i \"%s\"\n", 
 				ps->persistant[PERS_SCORE], cl->ping, cl->name);
 			playerLength = strlen(player);
-			if (statusLength + playerLength >= sizeof(status) ) {
+			if ((size_t)statusLength + playerLength >= sizeof(status) ) {
 				break;		// can't hold any more
 			}
 			strcpy (status + statusLength, player);
@@ -1084,7 +1084,7 @@ void SV_Frame( int msec ) {
 		Cvar_Set( "sv_fps", "10" );
 	}
 
-	frameMsec = 1000 / sv_fps->integer * com_timescale->value;
+	frameMsec = 1000.0f / sv_fps->integer * com_timescale->value;
 	// don't let it scale below 1ms
 	if(frameMsec < 1)
 	{

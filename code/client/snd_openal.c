@@ -2609,7 +2609,7 @@ qboolean S_AL_Init( soundInterface_t *si )
 	}
 
 	// Create OpenAL context
-	alContext = qalcCreateContext( alDevice, NULL );
+	alContext = qalcCreateContext( alDevice, NULL);
 	if( !alContext )
 	{
 		QAL_Shutdown( );

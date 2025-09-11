@@ -488,7 +488,7 @@ void CL_ParseGamestate( msg_t *msg ) {
 		}
 		
 		if ( cmd == svc_configstring ) {
-			int		len;
+			size_t		len = 0;
 
 			i = MSG_ReadShort( msg );
 			if ( i < 0 || i >= MAX_CONFIGSTRINGS ) {
@@ -771,7 +771,7 @@ void CL_ParseVoip ( msg_t *msg, qboolean ignoreData ) {
 		// reset the decoder just in case.
 		opus_decoder_ctl(clc.opusDecoder[sender], OPUS_RESET_STATE);
 		seqdiff = 0;
-	} else if (seqdiff * VOIP_MAX_PACKET_SAMPLES*2 >= sizeof (decoded)) { // dropped more than we can handle?
+	} else if ((size_t)seqdiff * VOIP_MAX_PACKET_SAMPLES*2 >= sizeof (decoded)) { // dropped more than we can handle?
 		// just start over.
 		Com_DPrintf("VoIP: Dropped way too many (%d) frames from client #%d\n",
 		            seqdiff, sender);

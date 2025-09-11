@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "q_shared.h"
 #include "qcommon.h"
-#include "unzip.h"
 
 /*
 =============================================================================
@@ -327,10 +326,10 @@ FILE*		missingFiles = NULL;
 FS_Initialized
 ==============
 */
-
+/*
 qboolean FS_Initialized( void ) {
 	return (fs_searchpaths != NULL);
-}
+}*/
 
 /*
 =================
@@ -395,7 +394,7 @@ static fileHandle_t	FS_HandleForFile(void) {
 	int		i;
 
 	for ( i = 1 ; i < MAX_FILE_HANDLES ; i++ ) {
-		if ( fsh[i].handleFiles.file.o == NULL ) {
+		if ( fsh[i].handleFiles.file.o == NULL) {
 			return i;
 		}
 	}
@@ -556,7 +555,7 @@ qboolean FS_CreatePath (const char *OSPath) {
 
 	// Skip creation of the root directory as it will always be there
 	ofs = strchr( path, PATH_SEP );
-	if ( ofs != NULL ) {
+	if ( ofs != NULL) {
 		ofs++;
 	}
 
@@ -2902,7 +2901,7 @@ static void FS_AddGameDirectory( const char *path, const char *dir ) {
 		if (pakwhich) {
 			// The next .pk3 file is before the next .pk3dir
 			pakfile = FS_BuildOSPath(path, dir, pakfiles[pakfilesi]);
-			if ((pak = FS_LoadZipFile(pakfile, pakfiles[pakfilesi])) == 0) {
+			if ((pak = FS_LoadZipFile(pakfile, pakfiles[pakfilesi])) == NULL) {
 				// This isn't a .pk3! Next!
 				pakfilesi++;
 				continue;
@@ -4056,7 +4055,7 @@ void FS_InitFilesystem( void ) {
 	// if we can't find default.cfg, assume that the paths are
 	// busted and error out now, rather than getting an unreadable
 	// graphics screen when the font fails to load
-	if ( FS_ReadFile( "default.cfg", NULL ) <= 0 ) {
+	if ( FS_ReadFile( "default.cfg", NULL) <= 0 ) {
 		Com_Error( ERR_FATAL, "Couldn't load default.cfg" );
 	}
 
@@ -4094,7 +4093,7 @@ void FS_Restart( int checksumFeed ) {
 	// if we can't find default.cfg, assume that the paths are
 	// busted and error out now, rather than getting an unreadable
 	// graphics screen when the font fails to load
-	if ( FS_ReadFile( "default.cfg", NULL ) <= 0 ) {
+	if ( FS_ReadFile( "default.cfg", NULL) <= 0 ) {
 		// this might happen when connecting to a pure server not using BASEGAME/pak0.pk3
 		// (for instance a TA demo server)
 		if (lastValidBase[0]) {

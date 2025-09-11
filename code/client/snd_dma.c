@@ -673,7 +673,7 @@ void S_Base_StartLocalSound( sfxHandle_t sfxHandle, int channelNum ) {
 		return;
 	}
 
-	S_Base_StartSoundEx( NULL, listener_number, channelNum, sfxHandle, qtrue );
+	S_Base_StartSoundEx(NULL, listener_number, channelNum, sfxHandle, qtrue );
 }
 
 

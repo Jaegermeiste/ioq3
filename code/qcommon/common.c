@@ -174,7 +174,7 @@ void QDECL Com_Printf( const char *fmt, ... ) {
 	va_end (argptr);
 
 	if ( rd_buffer ) {
-		if ((strlen (msg) + strlen(rd_buffer)) > (rd_buffersize - 1)) {
+		if ((strlen (msg) + strlen(rd_buffer)) > (size_t)(rd_buffersize - 1)) {
 			rd_flush(rd_buffer);
 			*rd_buffer = 0;
 		}
@@ -541,10 +541,10 @@ qboolean Com_AddStartupCommands( void ) {
 //============================================================================
 
 void Info_Print( const char *s ) {
-	char	key[BIG_INFO_KEY];
-	char	value[BIG_INFO_VALUE];
-	char	*o;
-	int		l;
+	char	key[BIG_INFO_KEY] = { 0 };
+	char	value[BIG_INFO_VALUE] = { 0 };
+	char	*o = NULL;
+	size_t		l = 0;
 
 	if (*s == '\\')
 		s++;
@@ -618,9 +618,9 @@ Com_Filter
 */
 int Com_Filter(char *filter, char *name, int casesensitive)
 {
-	char buf[MAX_TOKEN_CHARS];
-	char *ptr;
-	int i, found;
+	char buf[MAX_TOKEN_CHARS] = { 0 };
+	char *ptr = NULL;
+	int i = 0, found = qfalse;
 
 	while(*filter) {
 		if (*filter == '*') {
@@ -699,8 +699,8 @@ Com_FilterPath
 int Com_FilterPath(char *filter, char *name, int casesensitive)
 {
 	int i;
-	char new_filter[MAX_QPATH];
-	char new_name[MAX_QPATH];
+	char new_filter[MAX_QPATH] = { 0 };
+	char new_name[MAX_QPATH] = {0};
 
 	for (i = 0; i < MAX_QPATH-1 && filter[i]; i++) {
 		if ( filter[i] == '\\' || filter[i] == ':' ) {
@@ -945,7 +945,7 @@ Z_TagMalloc
 ================
 */
 #ifdef ZONE_DEBUG
-void *Z_TagMallocDebug( int size, int tag, char *label, char *file, int line ) {
+void *Z_TagMallocDebug( int size, int tag, const char *label, const char *file, int line ) {
 	int		allocSize;
 #else
 void *Z_TagMalloc( int size, int tag ) {
@@ -1043,7 +1043,7 @@ Z_Malloc
 ========================
 */
 #ifdef ZONE_DEBUG
-void *Z_MallocDebug( int size, char *label, char *file, int line ) {
+void *Z_MallocDebug( int size, const char *label, const char *file, int line ) {
 #else
 void *Z_Malloc( int size ) {
 #endif
@@ -1062,7 +1062,7 @@ void *Z_Malloc( int size ) {
 }
 
 #ifdef ZONE_DEBUG
-void *S_MallocDebug( int size, char *label, char *file, int line ) {
+void *S_MallocDebug( int size, const char *label, const char *file, int line ) {
 	return Z_TagMallocDebug( size, TAG_SMALL, label, file, line );
 }
 #else
@@ -1101,12 +1101,12 @@ Z_LogZoneHeap
 */
 void Z_LogZoneHeap( memzone_t *zone, char *name ) {
 #ifdef ZONE_DEBUG
-	char dump[32], *ptr;
-	int  i, j;
+	char dump[32] = { 0 }, *ptr = NULL;
+	int  i = 0, j = 0;
 #endif
-	memblock_t	*block;
+	memblock_t	*block = NULL;
 	char		buf[4096];
-	int size, allocSize, numBlocks;
+	size_t size = 0, allocSize = 0, numBlocks = 0;
 
 	if (!logfile || !FS_Initialized())
 		return;
@@ -1576,7 +1576,7 @@ void Com_InitHunkMemory( void ) {
 		s_hunkTotal = cv->integer * 1024 * 1024;
 	}
 
-	s_hunkData = calloc( s_hunkTotal + 31, 1 );
+	s_hunkData = calloc( (size_t)s_hunkTotal + 31, 1 );
 	if ( !s_hunkData ) {
 		Com_Error( ERR_FATAL, "Hunk data failed to allocate %i megs", s_hunkTotal / (1024*1024) );
 	}
@@ -1797,7 +1797,7 @@ void *Hunk_AllocateTempMemory( int size ) {
 	// this allows the config and product id files ( journal files too ) to be loaded
 	// by the file system without redunant routines in the file system utilizing different 
 	// memory systems
-	if ( s_hunkData == NULL )
+	if ( s_hunkData == NULL)
 	{
 		return Z_Malloc(size);
 	}
@@ -1845,7 +1845,7 @@ void Hunk_FreeTempMemory( void *buf ) {
 	  // this allows the config and product id files ( journal files too ) to be loaded
 	  // by the file system without redunant routines in the file system utilizing different 
 	  // memory systems
-	if ( s_hunkData == NULL )
+	if ( s_hunkData == NULL)
 	{
 		Z_Free(buf);
 		return;
@@ -1887,7 +1887,7 @@ permanent allocs use this side.
 =================
 */
 void Hunk_ClearTempMemory( void ) {
-	if ( s_hunkData != NULL ) {
+	if ( s_hunkData != NULL) {
 		hunk_temp->temp = hunk_temp->permanent;
 	}
 }
@@ -2190,7 +2190,7 @@ Returns last event time
 int Com_EventLoop( void ) {
 	sysEvent_t	ev;
 	netadr_t	evFrom;
-	byte		bufData[MAX_MSGLEN];
+	byte		bufData[MAX_MSGLEN] = { 0 };
 	msg_t		buf;
 
 	MSG_Init( &buf, bufData, sizeof( bufData ) );
@@ -2325,7 +2325,7 @@ A way to force a bus error for development reasons
 =================
 */
 static void Com_Crash_f( void ) {
-	* ( volatile int * ) 0 = 0x12345678;
+	* ( volatile int * ) NULL = 0x12345678;
 }
 
 /*
@@ -2643,7 +2643,7 @@ Seed the random number generator, if possible with an OS supplied random seed.
 */
 static void Com_InitRand(void)
 {
-	unsigned int seed;
+	unsigned int seed = 0;
 
 	if(Sys_RandomBytes((byte *) &seed, sizeof(seed)))
 		srand(seed);
@@ -2657,8 +2657,8 @@ Com_Init
 =================
 */
 void Com_Init( char *commandLine ) {
-	char	*s;
-	int	qport;
+	char	*s = NULL;
+	int	qport = 0;
 
 	Com_Printf( "%s %s %s\n", Q3_VERSION, PLATFORM_STRING, PRODUCT_DATE );
 
@@ -2688,7 +2688,7 @@ void Com_Init( char *commandLine ) {
 	Com_DetectSSE();
 
 	// override anything from the config files with command line args
-	Com_StartupVariable( NULL );
+	Com_StartupVariable(NULL);
 
 	Com_InitZoneMemory();
 	Cmd_Init ();
@@ -2724,7 +2724,7 @@ void Com_Init( char *commandLine ) {
 	Com_ExecuteCfg();
 
 	// override anything from the config files with command line args
-	Com_StartupVariable( NULL );
+	Com_StartupVariable(NULL);
 
   // get dedicated here for proper hunk megs initialization
 #ifdef DEDICATED
@@ -2905,7 +2905,7 @@ void Com_ReadFromPipe( void )
 			*brk = tmp;
 
 			accu -= brk - buf;
-			memmove( buf, brk, accu + 1 );
+			memmove( buf, brk, (size_t)accu + 1 );
 		}
 		else if( accu >= sizeof( buf ) - 1 ) // full
 		{
@@ -3663,7 +3663,7 @@ qboolean Com_FieldStringToPlayerName( char *name, int length, const char *rawnam
 	int			i;
 	int			ch;
 
-	if( name == NULL || rawname == NULL )
+	if( name == NULL || rawname == NULL)
 		return qfalse;
 
 	if( length <= 0 )
@@ -3694,7 +3694,7 @@ qboolean Com_PlayerNameToFieldString( char *str, int length, const char *name )
 	int i;
 	int x1, x2;
 
-	if( str == NULL || name == NULL )
+	if( str == NULL || name == NULL)
 		return qfalse;
 
 	if( length <= 0 )

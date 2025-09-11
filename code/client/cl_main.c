@@ -1470,7 +1470,7 @@ void CL_Disconnect( qboolean showMainMenu ) {
 		CL_CloseAVI( );
 	}
 
-	CL_UpdateGUID( NULL, 0 );
+	CL_UpdateGUID(NULL, 0 );
 
 	if(!noGameRestart)
 		CL_OldGame();
@@ -1754,7 +1754,7 @@ void CL_Connect_f( void ) {
 	if( cl_guidServerUniq->integer )
 		CL_UpdateGUID( serverString, strlen( serverString ) );
 	else
-		CL_UpdateGUID( NULL, 0 );
+		CL_UpdateGUID(NULL, 0 );
 
 	// if we aren't playing on a lan, we need to authenticate
 	// with the cd key
@@ -2253,14 +2253,14 @@ void CL_NextDownload(void)
 			s++;
 		remoteName = s;
 		
-		if ( (s = strchr(s, '@')) == NULL ) {
+		if ( (s = strchr(s, '@')) == NULL) {
 			CL_DownloadsComplete();
 			return;
 		}
 
 		*s++ = 0;
 		localName = s;
-		if ( (s = strchr(s, '@')) != NULL )
+		if ( (s = strchr(s, '@')) != NULL)
 			*s++ = 0;
 		else
 			s = localName + strlen(localName); // point at the nul byte
@@ -3751,7 +3751,7 @@ void CL_Init( void ) {
 
 	CL_GenerateQKey();
 	Cvar_Get( "cl_guid", "", CVAR_USERINFO | CVAR_ROM );
-	CL_UpdateGUID( NULL, 0 );
+	CL_UpdateGUID(NULL, 0 );
 
 	Com_Printf( "----- Client Initialization Complete -----\n" );
 }

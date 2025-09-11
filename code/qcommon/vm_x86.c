@@ -1091,7 +1091,7 @@ void VM_Compile(vm_t *vm, vmHeader_t *header)
 	// copy code in larger buffer and put some zeros at the end
 	// so we can safely look ahead for a few instructions in it
 	// without a chance to get false-positive because of some garbage bytes
-	Com_Memset(code, 0, header->codeLength+32);
+	Com_Memset(code, 0, (size_t)header->codeLength+32);
 	Com_Memcpy(code, (byte *)header + header->codeOffset, header->codeLength );
 
 	// ensure that the optimisation pass knows about all the jump

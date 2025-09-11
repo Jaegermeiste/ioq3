@@ -92,9 +92,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ID_INLINE __inline
 #define PATH_SEP '\\'
 
+<<<<<<< Updated upstream
 #if defined(__x86_64__) || defined(_M_X64)
 #undef idx64
 #define idx64 1
+=======
+#if defined(_WIN64) || defined(__WIN64__)
+>>>>>>> Stashed changes
 #define ARCH_STRING "x86_64"
 #define HAVE_VM_COMPILED
 #elif defined(__aarch64__) || defined(__ARM64__) || defined (_M_ARM64)
@@ -371,7 +375,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 void CopyShortSwap (void *dest, void *src);
 void CopyLongSwap (void *dest, void *src);
 short ShortSwap (short l);
+unsigned short UShortSwap(unsigned short l);
 int LongSwap (int l);
+unsigned int ULongSwap(unsigned int l);
 float FloatSwap (const float *f);
 
 #if defined( Q3_BIG_ENDIAN ) && defined( Q3_LITTLE_ENDIAN )
@@ -381,10 +387,14 @@ float FloatSwap (const float *f);
 #define CopyLittleShort(dest, src) CopyShortSwap(dest, src)
 #define CopyLittleLong(dest, src) CopyLongSwap(dest, src)
 #define LittleShort(x) ShortSwap(x)
+#define LittleUShort(x) UShortSwap(x)
 #define LittleLong(x) LongSwap(x)
+#define LittleULong(x) ULongSwap(x)
 #define LittleFloat(x) FloatSwap(&x)
 #define BigShort
+#define BigUShort
 #define BigLong
+#define BigULong
 #define BigFloat
 
 #elif defined( Q3_LITTLE_ENDIAN )
@@ -392,19 +402,27 @@ float FloatSwap (const float *f);
 #define CopyLittleShort(dest, src) Com_Memcpy(dest, src, 2)
 #define CopyLittleLong(dest, src) Com_Memcpy(dest, src, 4)
 #define LittleShort
+#define LittleUShort
 #define LittleLong
+#define LittleULong
 #define LittleFloat
 #define BigShort(x) ShortSwap(x)
+#define BigUShort(x) UShortSwap(x)
 #define BigLong(x) LongSwap(x)
+#define BigULong(x) ULongSwap(x)
 #define BigFloat(x) FloatSwap(&x)
 
 #elif defined( Q3_VM )
 
 #define LittleShort
+#define LittleUShort
 #define LittleLong
+#define LittleULong
 #define LittleFloat
 #define BigShort
+#define BigUShort
 #define BigLong
+#define BigULong
 #define BigFloat
 
 #else
