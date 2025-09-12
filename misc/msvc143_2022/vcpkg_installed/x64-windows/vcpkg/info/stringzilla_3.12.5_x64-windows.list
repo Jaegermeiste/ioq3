@@ -1,0 +1,12 @@
+x64-windows/
+x64-windows/include/
+x64-windows/include/stringzilla/
+x64-windows/include/stringzilla/drafts.h
+x64-windows/include/stringzilla/module.modulemap
+x64-windows/include/stringzilla/stringzilla.h
+x64-windows/include/stringzilla/stringzilla.hpp
+x64-windows/share/
+x64-windows/share/stringzilla/
+x64-windows/share/stringzilla/copyright
+x64-windows/share/stringzilla/vcpkg.spdx.json
+x64-windows/share/stringzilla/vcpkg_abi_info.txt

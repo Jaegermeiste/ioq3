@@ -287,8 +287,11 @@ int AAS_ValueForBSPEpairKey(int ent, char *key, char *value, int size)
 		if (!strcmp(epair->key, key))
 		{
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 			Q_strncpyz(value, epair->value, size);
 =======
+=======
+>>>>>>> Stashed changes
 			strncpy(value, epair->value, (size_t)size-1);
 			value[size-1] = '\0';
 >>>>>>> Stashed changes
